@@ -1,2 +1,3 @@
 class Artist < ApplicationRecord
-end
+    has_many :songs, dependent: :destroy 
+  end
