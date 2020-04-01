@@ -1,5 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_user!,only: [:new, :show]
+  before_action :find_todo, except: [:index, :new, :create]
 
     def index 
         @artists = current_user.artists.all  
@@ -7,7 +8,6 @@ class ArtistsController < ApplicationController
 
 
     def show
-        @artist = Artist.find(params[:id])
         @songs = @artist.songs
 
         if  @artist.user != current_user
@@ -17,8 +17,7 @@ class ArtistsController < ApplicationController
    end
 
       def destroy
-        Artist.find(params[:id]).destroy
-      
+        @artist.destroy
         redirect_to artists_path
       end
       
@@ -39,7 +38,6 @@ class ArtistsController < ApplicationController
       
 
       def update
-        artist = Artist.find(params[:id])
         artist.update(params.require(:artist).permit(:name, :albums, :hometown, :img))
         
         redirect_to artist
@@ -52,6 +50,6 @@ class ArtistsController < ApplicationController
     end
 
     def find_todo
-      @todo = Todo.find(params[:id])
+      @artist = Artist.find(params[:id])
     end
 end
