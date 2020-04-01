@@ -10,6 +10,16 @@
   </head>
 
   <body>
+  <% if user_signed_in? %>
+  <p>
+      Welcome <%= current_user.email %>
+  </p>
+  <% end %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  
+  <%= render 'layouts/nav' %>
+  
     <%= yield %>
   </body>
 </html>
